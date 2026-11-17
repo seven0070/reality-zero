@@ -1,0 +1,23 @@
+[project]
+name = "reality-zero"
+version = "0.1.0"
+description = "Grok bot packaged as a sandbox, built to run on 8 CPU cores"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["httpx>=0.27,<1.0"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+grok-bot = "grok_bot.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["grok_bot"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

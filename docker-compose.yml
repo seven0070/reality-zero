@@ -1,0 +1,24 @@
+services:
+  grok-bot:
+    build: .
+    image: reality-zero/grok-bot:latest
+    env_file: .env
+    environment:
+      # The sandbox this service runs in has 8 CPU cores.
+      SANDBOX_CPUS: "8"
+    # Hard CPU limit for non-Swarm `docker compose up` deployments.
+    cpus: 8.0
+    mem_limit: 8g
+    # Interactive REPL needs stdin + TTY (`docker compose run --rm grok-bot`).
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+    deploy:
+      # Swarm-mode placement: reserve and cap 8 CPUs.
+      resources:
+        limits:
+          cpus: "8.0"
+          memory: 8G
+        reservations:
+          cpus: "4.0"
+          memory: 2G
